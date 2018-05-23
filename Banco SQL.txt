@@ -1,0 +1,168 @@
+CREATE TABLE [dbo].[tb_credito] (
+	[NumCartao] [numeric](18, 0) NULL ,
+	[TempoCred] [char] (8) NULL ,
+	[TempoRest] [char] (8) NULL ,
+	[DtCred] [datetime] NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[tb_acesso] (
+	[CodCli] [numeric](18, 0) NOT NULL ,
+	[Login] [varchar] (10) NOT NULL ,
+	[Senha] [varchar] (10) NOT NULL ,
+	[DtAcesso] [datetime] NOT NULL ,
+	[Lembrete] [varchar] (50) NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[tb_caixa] (
+	[CodItem] [numeric](18, 0) IDENTITY (1, 1) NOT NULL ,
+	[Descr] [varchar] (50) NULL ,
+	[Vldeb] [varchar] (50) NULL ,
+	[Vlcred] [varchar] (50) NULL ,
+	[DtItem] [datetime] NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[tb_cartao] (
+	[NumCartao] [numeric](18, 0) IDENTITY (1, 1) NOT NULL ,
+	[CodCli] [numeric](18, 0) NOT NULL ,
+	[DtCartao] [datetime] NULL ,
+	[Cancelado] [bit] NOT NULL ,
+	[Motivo] [varchar] (250) NULL ,
+	[Resp] [varchar] (150) NULL ,
+	[DtCancel] [datetime] NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[tb_cartaovirada] (
+	[NumCartao] [varchar] (5) NOT NULL ,
+	[CodCli] [numeric](18, 0) NULL ,
+	[DtCartao] [datetime] NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[tb_cliente] (
+	[CodCli] [numeric](18, 0) IDENTITY (1, 1) NOT NULL ,
+	[DtCad] [datetime] NULL ,
+	[Nome] [varchar] (150) NULL ,
+	[Ender] [varchar] (250) NULL ,
+	[Cep] [varchar] (9) NULL ,
+	[Bairro] [varchar] (50) NULL ,
+	[Cidade] [varchar] (100) NULL ,
+	[Estado] [varchar] (2) NULL ,
+	[Tel] [varchar] (9) NULL ,
+	[Cel] [varchar] (9) NULL ,
+	[TelRec] [varchar] (9) NULL ,
+	[Contato] [varchar] (50) NULL ,
+	[NascDia] [numeric](18, 0) NULL ,
+	[NascMes] [numeric](18, 0) NULL ,
+	[NascAno] [numeric](18, 0) NULL ,
+	[Ident] [varchar] (20) NULL ,
+	[Cpf] [varchar] (12) NULL ,
+	[Pai] [varchar] (150) NULL ,
+	[Mae] [varchar] (150) NULL ,
+	[CpfPai] [varchar] (12) NULL ,
+	[CpfMae] [varchar] (12) NULL ,
+	[Obs] [varchar] (250) NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[tb_comandos] (
+	[Maq] [numeric](18, 0) NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[tb_conect] (
+	[CodCli] [numeric](18, 0) NOT NULL ,
+	[NumMaq] [numeric](18, 0) NULL ,
+	[NumCartao] [numeric](18, 0) NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[tb_controle] (
+	[CodControle] [numeric](18, 0) IDENTITY (1, 1) NOT NULL ,
+	[Descricao] [varchar] (100) NULL ,
+	[Login] [varchar] (10) NULL ,
+	[Senha] [varchar] (10) NULL ,
+	[Tipo] [varchar] (10) NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[tb_espera] (
+	[CodCli] [numeric](18, 0) NULL ,
+	[Entrada] [datetime] NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[tb_guardacredito] (
+	[NumCartao] [numeric](18, 0) NULL ,
+	[TempoCred] [varchar] (8) NULL ,
+	[DtCred] [datetime] NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[tb_jogo] (
+	[Sigla] [varchar] (10) NOT NULL ,
+	[Jogo] [varchar] (100) NOT NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[tb_maqcli] (
+	[CodCli] [numeric](18, 0) NULL ,
+	[NumMaq] [numeric](18, 0) NULL ,
+	[DataEntr] [datetime] NULL ,
+	[HoraEntr] [datetime] NULL ,
+	[DataSaida] [datetime] NULL ,
+	[HoraSaida] [datetime] NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[tb_maquina] (
+	[NumMaq] [numeric](18, 0) NOT NULL ,
+	[Situacao] [varchar] (10) NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[tb_preco] (
+	[CodProd] [numeric](18, 0) IDENTITY (1, 1) NOT NULL ,
+	[Prod] [varchar] (50) NULL ,
+	[Preco] [varchar] (6) NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[tb_promocao] (
+	[Cartao] [numeric](18, 0) NULL ,
+	[Credito] [datetime] NULL 
+) ON [PRIMARY]
+GO
+
+
+tb_jogo
+Sigla	Jogo
+CS	Counter Strike
+HL	Half Life
+WC	WarCraft III
+DM	DeathMatch
+DOD	Day of Defeat
+BRR	BattleField Road to Rome
+AE	Age of Empires
+AM	Age of Mythology
+QK	Quake III
+DB	Dragon Ball
+FF	Fifa 2003
+RK	Ranking do CS
+
+
+CHAVES PRIMÁRIAS
+
+tb_jogo
+Sigla (key)
+
+tb_conect
+CodCli (key)
+
+
+tb_promocao
+cartao (nº)
+credito (datetime)
